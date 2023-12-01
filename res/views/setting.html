@@ -1,0 +1,116 @@
+<div class="layui-fluid layui-col-xs12">
+    <div class="layui-form-item">
+        <div class="layui-input-group">
+            <div class="layui-input-split layui-input-prefix">
+                图片数据文件
+            </div>
+            <input id="upload_Graphic_path" type="text" placeholder="请选择Graphic文件" class="layui-input" style="min-width: 320px;">
+            <div class="layui-input-suffix">
+                <button class="layui-btn layui-btn-primary" id="upload_Graphic_btn">打开</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-group">
+            <div class="layui-input-split layui-input-prefix">
+                图片信息文件
+            </div>
+            <input id="upload_GraphicInfo_path" type="text" placeholder="请选择GraphicInfo文件" class="layui-input" style="min-width: 320px;">
+            <div class="layui-input-suffix">
+                <button class="layui-btn layui-btn-primary" id="upload_GraphicInfo_btn">打开</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-group">
+            <div class="layui-input-split layui-input-prefix">
+                动画数据文件
+            </div>
+            <input id="upload_Anime_path" type="text" placeholder="请选择Anime文件" class="layui-input" style="min-width: 320px;">
+            <div class="layui-input-suffix">
+                <button class="layui-btn layui-btn-primary" id="upload_Anime_btn">打开</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-group">
+            <div class="layui-input-split layui-input-prefix">
+                动画信息文件
+            </div>
+            <input id="upload_AnimeInfo_path" type="text" placeholder="请选择AnimeInfo文件" class="layui-input" style="min-width: 320px;">
+            <div class="layui-input-suffix">
+                <button class="layui-btn layui-btn-primary" id="upload_AnimeInfo_btn">打开</button>
+            </div>
+        </div>
+    </div>
+
+    *注:请确保文件名中必须分别包含: Graphic | GraphicInfo | Anime | AnimeInfo, 不区分大小写
+</div>
+
+<script>
+    let $, layer;
+    let graphic_info_file;
+    let anime_file;
+    let anime_info_file;
+    layui.use(function () {
+        $ = layui.$;
+        layer = layui.layer;
+        if(G_FILE){
+            $('#upload_Graphic_path').val(G_FILE);
+        }
+
+        if(GINFO_FILE){
+            $('#upload_GraphicInfo_path').val(GINFO_FILE);
+        }
+
+        if(A_FILE){
+            $('#upload_Anime_path').val(A_FILE);
+        }
+
+        if(AINFO_FILE){
+            $('#upload_AnimeInfo_path').val(AINFO_FILE);
+        }
+
+        $("#upload_Graphic_btn").click(async function () {
+            const filePath = await window.electronAPI.openGraphicFile('Graphic');
+            if(filePath){
+                G_FILE = filePath;
+                $('#upload_Graphic_path').val(filePath);
+            }else{
+                layer.msg('请选择Graphic文件');
+            }
+        });
+
+        $("#upload_GraphicInfo_btn").click(async function () {
+            const filePath = await window.electronAPI.openGraphicInfoFile('GraphicInfo');
+            if(filePath){
+                GINFO_FILE = filePath;
+                $('#upload_GraphicInfo_path').val(filePath);
+            }else{
+                layer.msg('请选择GraphicInfo文件');
+            }
+        });
+
+        $("#upload_Anime_btn").click(async function () {
+            const filePath = await window.electronAPI.openAnimeFile('Anime');
+            if(filePath){
+                A_FILE = filePath;
+                $('#upload_Anime_path').val(filePath);
+            }else{
+                layer.msg('请选择Anime文件');
+            }
+        });
+
+        $("#upload_AnimeInfo_btn").click(async function () {
+            const filePath = await window.electronAPI.openAnimeInfoFile('AnimeInfo');
+            if(filePath){
+                AINFO_FILE = filePath;
+                $('#upload_AnimeInfo_path').val(filePath);
+            }else{
+                layer.msg('请选择AnimeInfo文件');
+            }
+        });
+    });
+
+    
+</script>
