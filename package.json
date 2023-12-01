@@ -1,7 +1,7 @@
 {
   "name": "readcgbin_gui",
   "version": "1.0.0",
-  "description": "read cg bin tool gui",
+  "description": "CrossGate Bin Tool GUI",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -17,34 +17,10 @@
     "@electron-forge/maker-rpm": "^7.2.0",
     "@electron-forge/maker-squirrel": "^7.2.0",
     "@electron-forge/maker-zip": "^7.2.0",
-    "electron": "^27.1.2"
+    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
+    "electron": "27.1.3"
   },
-  "dependencies": {},
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "electron_quick_start"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
