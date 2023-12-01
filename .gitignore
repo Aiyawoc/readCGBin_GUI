@@ -1,5 +1,6 @@
 node_modules
 .vscode
 说明.txt
-
+npminstall-debug.log
 out/
+.gitignore
