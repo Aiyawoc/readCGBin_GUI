@@ -1,5 +1,7 @@
 # CrossGate Bin Tool GUI
+![图片](./res/images/UI_02.jpg)
 
+![图片](./res/images/UI_02.jpg)
 
 ### 使用方法:
 
