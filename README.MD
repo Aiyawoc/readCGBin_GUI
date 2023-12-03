@@ -13,3 +13,8 @@ npm start --enable-logging
 npm install
 npm run make -- --arch="ia32,x64"
 ```
+
+### 压缩:
+1. https://www.zhihu.com/question/380942381/answer/2898106802?utm_id=0
+
+2. https://newsn.net/say/electron-exe-upx.html

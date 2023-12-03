@@ -6,8 +6,9 @@ const Path = require('path');
 let mainWindow;
 const createWindow = () => {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        icon: `./favicon.ico`,
+        width: 820,
+        height: 640,
         webPreferences: {
             preload: Path.join(__dirname, '/modules/preload.js')
         }
