@@ -29,8 +29,8 @@
             <div class="layui-input-group" style="font-size: 10px; margin-bottom: 4px;">
                 <div class="layui-input-prefix">数量:</div>
                 <div id="a_count" class="layui-input-suffix">164015</div>
-                <input type="text" placeholder="编号" class="layui-input">
-                <div class="layui-input-split layui-input-suffix" style="cursor: pointer;">
+                <input id="a_search_input" type="text" placeholder="编号" class="layui-input">
+                <div id="a_search_btn" class="layui-input-split layui-input-suffix" style="cursor: pointer;">
                     <i class="layui-icon layui-icon-search"></i>
                 </div>
             </div>
@@ -66,11 +66,11 @@
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">动画帧数:</span>
-                    <div class="attr_value">8</div>
+                    <div id="a_frameCount" class="attr_value">8</div>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">调色板:</span>
-                    <div id="a_frameCount" class="attr_value">自带</div>
+                    <div id="a_pattle" class="attr_value">自带</div>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">动作:</span>
@@ -154,10 +154,23 @@
 
 
 <script>
+    let mockData = [];
+    for(let i=0; i<Math.floor(Math.random()*1000); i++){
+        mockData.push({
+            animeId: i,
+            addr: '0x0000FF',
+            animeCount:Math.floor(Math.random()*64)+64,
+            animeTime:500+Math.floor(Math.random()*500),
+            frameCount:8+Math.floor(Math.random()*8),
+            pattle:Math.floor(Math.random()*3),
+            actions:[]
+        });
+    }
+
     let $, layer, table;
     let inst;
     let curRow = null;
-    
+
     layui.use(function () {
         $ = layui.$;
         layer = layui.layer;
@@ -174,44 +187,17 @@
             cellExpandedMode:'tips',
             cols: [[
                 {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
-                {field:'id', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
+                {field:'animeId', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
                 {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false},
                 {field:'animeCount', fixed: 'left', title: '数量', maxWidth:50, style:'scale:0.8;', unresize: false}
             ]],
-            data:[
-                {id:'1243001', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243002', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243003', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243004', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243005', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243006', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243007', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243008', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243009', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243010', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243011', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243012', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243013', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243014', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243015', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243016', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243017', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243018', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243019', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243020', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243021', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243022', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243023', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243024', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243025', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243026', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243027', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243028', addr:'0x0000FF', animeCount:'164'}
-            ],
+            data:mockData,
             done:function(res, curr, count){
-                // console.log(res);
-                // console.log(curr);
-                // console.log(count);
+                // console.log({res, curr, count});
+                $('#a_count').text(count);
+                celOnSelect(mockData[0]);
+                curRow = 0;
+                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
             }
         });
 
@@ -272,7 +258,47 @@
         }
     };
 
+    $('#a_search_btn').on('click', function(){
+        let num = $('#a_search_input').val();
+        if(num == ''){
+            return;
+        }
+
+        let data = inst.config.data;
+        console.log(data);
+        let has = false;
+        for(let i=0; i<data.length; i++){
+            if(data[i].animeId == num){
+                curRow = i;
+                has = true;
+                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+                celOnSelect(data[i]);
+                break;
+            }
+        }
+
+        if(!has){
+            layer.msg('未找到该编号',{offset:['100px','60px']});
+        }else{
+            // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
+            let tr = $(`tr[data-index=${curRow}]`);
+            let _table = tr[0].parentNode.parentNode.parentNode;
+    
+            if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
+                _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
+            }else if(tr[0].offsetTop < _table.scrollTop){
+                _table.scrollTop = tr[0].offsetTop;
+            }
+        }
+    });
+
+    // cel选中事件回调
     function celOnSelect(data){
         console.log({data});
+        $('#a_animeId').text(data.animeId);
+        $('#a_count2').text(data.animeCount);
+        $('#a_animeTime').text(data.animeTime);
+        $('#a_frameCount').text(data.frameCount);
+        $('#a_pattle').text(['官方','自带','隐藏'][data.pattle]);
     }
 </script>

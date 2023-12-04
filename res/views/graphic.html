@@ -48,9 +48,9 @@
         <div style="height: 542px; background-color:#2e2e2e; color: #fff;">
             <div class="layui-input-group" style="font-size: 10px; margin-bottom: 4px;">
                 <div class="layui-input-prefix">数量:</div>
-                <div id="g_count" class="layui-input-suffix">164015</div>
-                <input type="text" placeholder="编号" class="layui-input">
-                <div class="layui-input-split layui-input-suffix" style="cursor: pointer;">
+                <div id="g_count" class="layui-input-suffix">0</div>
+                <input id="g_search_input" type="text" placeholder="编号" class="layui-input">
+                <div id="g_search_btn" class="layui-input-split layui-input-suffix" style="cursor: pointer;">
                     <i class="layui-icon layui-icon-search"></i>
                 </div>
             </div>
@@ -73,24 +73,24 @@
             <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 174px; margin-right: 4px; height: 196px; font-size: 10px;">
                 <div class="layui-input-group" style="margin-bottom: 4px; margin-top: 10px;">
                     <span class="attr_title">图片编号:</span>
-                    <div id="g_imgNum" class="attr_value"> 1243001 </div>
+                    <div id="g_imgNum" class="attr_value">0</div>
                     <button id="g_imgNum_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
                 </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
+                <!-- <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">版本:</span>
                     <div id="g_verson" class="attr_value">02</div>
-                </div>
+                </div> -->
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">占用字节:</span>
-                    <div id="g_size" class="attr_value">5685</div>
+                    <div id="g_size" class="attr_value">0</div>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">图片大小:</span>
-                    <div id="g_imgWidth_imgHeight" class="attr_value">128,128</div>
+                    <div id="g_imgWidth_imgHeight" class="attr_value">0,0</div>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">偏移量:</span>
-                    <div id="g_imgOffsetX_imgOffsetY" class="attr_value">-32,-32</div>
+                    <div id="g_imgOffsetX_imgOffsetY" class="attr_value">0,0</div>
                     <button id="g_imgOffsetX_imgOffsetY_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
@@ -102,6 +102,11 @@
                     <span class="attr_title">地图编号:</span>
                     <div id="g_mapId" class="attr_value">0</div>
                     <button id="g_mapId_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
+                </div>
+                <div class="layui-input-group" style="margin-bottom: 4px;">
+                    <span class="attr_title">可移动:</span>
+                    <div id="g_canMove" class="attr_value">0</div>
+                    <button id="g_canMove_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
                 </div>
                 <div class="layui-input-group" style="margin-bottom: 4px;">
                     <span class="attr_title">调色板:</span>
@@ -149,6 +154,24 @@
 
 
 <script>
+    let mockData = [];
+    for(let i=0; i<Math.floor(Math.random()*1000)+20; i++){
+        mockData.push({
+            imgNum: i,
+            addr: '0x0000FF',
+            imgSize: Math.floor(Math.random()*1000) + 2000,
+            offsetX: -1* Math.floor(Math.random()*100),
+            offsetY: -1* Math.floor(Math.random()*100),
+            imgWidth: Math.floor(Math.random()*100) + 32,
+            imgHeight: Math.floor(Math.random()*100) + 32,
+            areaX: 1,
+            areaY: 1,
+            canMove: 1,
+            mapId: 0,
+            pattle: Math.floor(Math.random()*3)
+        });
+    }
+
     let $, layer, table;
     let inst;
     let curRow = null;
@@ -169,43 +192,16 @@
             cellExpandedMode:'tips',
             cols: [[
                 {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
-                {field:'id', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
+                {field:'imgNum', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
                 {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false}
             ]],
-            data:[
-                {id:'1243001', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243002', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243003', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243004', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243005', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243006', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243007', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243008', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243009', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243010', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243011', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243012', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243013', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243014', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243015', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243016', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243017', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243018', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243019', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243020', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243021', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243022', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243023', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243024', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243025', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243026', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243027', addr:'0x0000FF', animeCount:'164'},
-                {id:'1243028', addr:'0x0000FF', animeCount:'164'}
-            ],
+            data: mockData,
             done:function(res, curr, count){
-                // console.log(res);
-                // console.log(curr);
-                // console.log(count);
+                // console.log({res, curr, count});
+                $('#g_count').text(count);
+                celOnSelect(mockData[0]);
+                curRow = 0;
+                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
             }
         });
 
@@ -267,8 +263,52 @@
         }
     };
 
+    $('#g_search_btn').on('click', function(){
+        let num = $('#g_search_input').val();
+        if(num == ''){
+            return;
+        }
+
+        let data = inst.config.data;
+        let has = false;
+        for(let i=0; i<data.length; i++){
+            if(data[i].imgNum == num){
+                curRow = i;
+                has = true;
+                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+                celOnSelect(data[i]);
+                break;
+            }
+        }
+
+        if(!has){
+            layer.msg('未找到该编号',{offset:['100px','60px']});
+        }else{
+            // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
+            let tr = $(`tr[data-index=${curRow}]`);
+            let _table = tr[0].parentNode.parentNode.parentNode;
+    
+            if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
+                _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
+            }else if(tr[0].offsetTop < _table.scrollTop){
+                _table.scrollTop = tr[0].offsetTop;
+            }
+        }
+    });
+
     // cel选中事件回调
     function celOnSelect(data){
         console.log({data});
+        $('#g_imgNum').text(data.imgNum);
+        $('#g_size').text(data.imgSize);
+        $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
+        $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
+        $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
+        $('#g_mapId').text(data.mapId);
+        $('#g_canMove').text(data.canMove);
+        $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
+        // TODO: 更新canvas
     }
 </script>
+
+
