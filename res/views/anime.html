@@ -155,11 +155,14 @@
 
 <script>
     let $, layer, table;
+    let inst;
+    let curRow = null;
+    
     layui.use(function () {
         $ = layui.$;
         layer = layui.layer;
         table = layui.table;
-        let inst = table.render({
+        inst = table.render({
             elem: '#data-list',
             defaultToolbar: [],
             align:'left',
@@ -228,11 +231,48 @@
             // obj.update(fields, related);  // 修改行数据
             obj.setRowChecked({type: 'radio'}); // 设置行选中状态, radio 单选模式；checkbox 复选模式
 
-
+            celOnSelect(obj.data);
         });
 
         table.on('rowContextmenu(data-list)', function(obj){
             obj.setRowChecked({type: 'checkbox'});
         });
     });
+
+    document.onkeyup = function (e) {
+        if (!(e.keyCode == 38 || e.keyCode == 40)) {
+            return;
+        }
+
+        let maxLen = inst.config.data.length;
+
+        if (curRow == null){
+            curRow = 0;
+        }else{
+            if (e.keyCode === 38){
+                curRow--;
+                curRow = curRow < 0 ? maxLen - 1 : curRow;
+            }else if (e.keyCode === 40){
+                curRow++;
+                curRow = curRow >= maxLen ? 0 : curRow;
+            }
+        }
+
+        table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+        celOnSelect(inst.config.data[curRow]);
+
+        // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
+        let tr = $(`tr[data-index=${curRow}]`);
+        let _table = tr[0].parentNode.parentNode.parentNode;
+
+        if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
+            _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
+        }else if(tr[0].offsetTop < _table.scrollTop){
+            _table.scrollTop = tr[0].offsetTop;
+        }
+    };
+
+    function celOnSelect(data){
+        console.log({data});
+    }
 </script>
