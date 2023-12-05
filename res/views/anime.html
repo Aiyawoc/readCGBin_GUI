@@ -12,6 +12,9 @@
         width: 54px; 
         text-align: left; 
         padding-left: 4px;
+        /* border-style: solid;
+        border-width: thin;
+        width: 90px; */
     }
 
     .attr_btn{
@@ -24,281 +27,198 @@
 </style>
 
 <div class="layui-row layui-col-space4" style="margin-top: 4px;">
-    <div class="layui-col-xs4">
+    <div class="layui-col-xs3">
         <div style="height: 542px; background-color:#2e2e2e; color: #fff;">
-            <div class="layui-input-group" style="font-size: 10px; margin-bottom: 4px;">
-                <div class="layui-input-prefix">数量:</div>
-                <div id="a_count" class="layui-input-suffix">164015</div>
-                <input id="a_search_input" type="text" placeholder="编号" class="layui-input">
-                <div id="a_search_btn" class="layui-input-split layui-input-suffix" style="cursor: pointer;">
-                    <i class="layui-icon layui-icon-search"></i>
+            <div style="height: 12px;"></div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动画总数:</span>
+                <div id="a_count" class="attr_value"> 1243001 </div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">物理编号:</span>
+                <input id="a_search_input" type="text" placeholder="请输入编号" class="layui-input" style="width: 100px; height: 22px; font-size: 10px; margin-left: 4px; margin-top: 8px;">
+                <div class="layui-input-suffix" style="width: 30px;">
+                    <button id="a_search_btnup" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.5; margin-left: -8px; margin-bottom: 0px; margin-top: 7px; transform-origin: left top; padding: 0; width: 28px;">
+                        <i class="layui-icon layui-icon-up"></i>
+                    </button>
+                    <button id="a_search_btndown" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.5; margin-left: -8px; margin-top: -16px; transform-origin: left top; padding: 0; width: 28px;">
+                        <i class="layui-icon layui-icon-down"></i>
+                    </button>
                 </div>
             </div>
 
-            <div id="data-list"></div>
-
-            <div class="layui-input-group" style="font-size: 10px; margin-top: 4px;">
-                <button id="a_export_bin_mult" class="layui-btn layui-btn-sm layui-show-sm-inline" style="scale:0.8; width:100px; margin-left: 24px; margin-top: 4px;">批量导出bin</button>
-                <button id="a_export_gif_mult" class="layui-btn layui-btn-sm layui-show-sm-inline" style="scale:0.8; width:100px; margin-top: 4px;">批量导出gif</button>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动画编号:</span>
+                <div id="a_animeId" class="attr_value" style="width: 90px;">0</div>
+                <button id="a_animeId_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
             </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">地址:</span>
+                <div id="a_addr" class="attr_value">0xFF0012</div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动作数量:</span>
+                <div id="a_ActionCount" class="attr_value">128</div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">调色板:</span>
+                <div id="a_pattle" class="attr_value">自带</div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动作:</span>
+                <select id="a_action" style="width: 80px; margin-left: 4px; font-size: 10px;">
+                    <option value="0" selected>0-站立</option>
+                    <option value="1">1-走路</option>
+                    <option value="2">2-跑步准备</option>
+                    <option value="3">3-跑步</option>
+                    <option value="4">4-跑步结束</option>
+                    <option value="5">5-攻击</option>
+                    <option value="6">6-魔法</option>
+                    <option value="7">7-投掷</option>
+                    <option value="8">8-受伤</option>
+                    <option value="9">9-防御</option>
+                    <option value="10">10-倒下</option>
+                    <option value="11">11-坐下</option>
+                    <option value="12">12-招手</option>
+                    <option value="13">13-高兴</option>
+                    <option value="14">14-生气</option>
+                    <option value="15">15-悲伤</option>
+                    <option value="16">16-点头</option>
+                    <option value="17">17-石头</option>
+                    <option value="18">18-剪刀</option>
+                    <option value="19">19-布</option>
+                    <option value="20">20-钓鱼</option>
+                </select>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">方向:</span>
+                <select id="a_direct" style="width: 80px; margin-left: 4px; font-size: 10px;">
+                    <option value="0" selected>0-北</option>
+                    <option value="1">1-东北</option>
+                    <option value="2">2-东</option>
+                    <option value="3">3-东南</option>
+                    <option value="4">4-南</option>
+                    <option value="5">5-西南</option>
+                    <option value="6">6-西</option>
+                    <option value="7">7-西北</option>
+                </select>
+            </div>
+            
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动作周期:</span>
+                <div id="a_animeTime" class="attr_value">1000</div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">动作帧数:</span>
+                <div id="a_frameCount" class="attr_value">8</div>
+            </div>
+            
+            <button id="a_export_bin" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-top: 10px; margin-bottom: 4px; margin-left: 16px;">导出bin</button>
+            <button id="a_export_gif" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-top: 10px; margin-bottom: 4px;">导出gif</button>
+            <button id="a_repairPal" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px; margin-left: 16px;">修复调色板</button>
+            <button id="a_delete_bin" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px;">删除动画</button>
+            <button id="a_export_bin_mult" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px; margin-left: 16px;">批量导出bin</button>
+            <button id="a_export_gif_mult" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px;">批量导出gif</button>
+            
+            <div class="layui-form-item" style="margin-left: 14px; margin-top: 10px; font-size: 10px;">
+                <span class="attr_title">导入动画:</span>
+                <div class="layui-input-group" style="margin-top: 4px; margin-bottom: 4px;">
+                    <input id="a_import_graphic_input" type="text" placeholder="请选择Graphic文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="a_import_graphic_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <div class="layui-input-group" style="margin-bottom: 4px;">
+                    <input id="a_import_graphicinfo_input" type="text" placeholder="请选择GraphicInfo文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="a_import_graphicinfo_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <div class="layui-input-group" style="margin-bottom: 4px;">
+                    <input id="a_import_anime_input" type="text" placeholder="请选择Anime文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="a_import_anime_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <div class="layui-input-group" style="margin-bottom: 4px;">
+                    <input id="a_import_animeinfo_input" type="text" placeholder="请选择AnimeInfo文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="a_import_animeinfo_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <button id="a_import_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="width: 80px; margin-left: 96px;">合并</button>
+                <span style="color: red; width: 176px; display: block;">*注:请确保文件名中必须分别包含: Graphic | GraphicInfo | Anime | AnimeInfo, 不区分大小写</span>
+            </div>
+                
         </div>
     </div>
 
-    <div class="layui-col-xs8">
-        <div style="height: 342px; background-color:#2e2e2e; color: #fff; background-image: url(res/images/canvasBg.jpg);">
-            <canvas id="a_canvas" style="width: 530px; height: 342px;"></canvas>
-        </div>
-
-        <div class="layui-row" style="height: 196px; background-color:#3c3c3c; color: #fff; margin-top: 4px;">
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 174px; margin-right: 4px; height: 196px; font-size: 10px;">
-                <div class="layui-input-group" style="margin-bottom: 4px; margin-top: 10px;">
-                    <span class="attr_title">动画编号:</span>
-                    <div id="a_animeId" class="attr_value"> 1243001 </div>
-                    <button class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">动画数量:</span>
-                    <div id="a_count2" class="attr_value">164015</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">动画周期:</span>
-                    <div id="a_animeTime" class="attr_value">1000</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">动画帧数:</span>
-                    <div id="a_frameCount" class="attr_value">8</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">调色板:</span>
-                    <div id="a_pattle" class="attr_value">自带</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">动作:</span>
-                    <select id="a_action" style="width: 80px; margin-left: 4px;">
-                        <option value="0" selected>0-站立</option>
-                        <option value="1">1-走路</option>
-                        <option value="2">2-跑步准备</option>
-                        <option value="3">3-跑步</option>
-                        <option value="4">4-跑步结束</option>
-                        <option value="5">5-攻击</option>
-                        <option value="6">6-魔法</option>
-                        <option value="7">7-投掷</option>
-                        <option value="8">8-受伤</option>
-                        <option value="9">9-防御</option>
-                        <option value="10">10-倒下</option>
-                        <option value="11">11-坐下</option>
-                        <option value="12">12-招手</option>
-                        <option value="13">13-高兴</option>
-                        <option value="14">14-生气</option>
-                        <option value="15">15-悲伤</option>
-                        <option value="16">16-点头</option>
-                        <option value="17">17-石头</option>
-                        <option value="18">18-剪刀</option>
-                        <option value="19">19-布</option>
-                        <option value="20">20-钓鱼</option>
-                    </select>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">方向:</span>
-                    <select id="a_direct" style="width: 80px; margin-left: 4px;">
-                        <option value="0" selected>0-北</option>
-                        <option value="1">1-东北</option>
-                        <option value="2">2-东</option>
-                        <option value="3">3-东南</option>
-                        <option value="4">4-南</option>
-                        <option value="5">5-西南</option>
-                        <option value="6">6-西</option>
-                        <option value="7">7-西北</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 174px; margin-right: 4px; height: 196px; font-size: 10px; text-align: center;">
-                <button id="a_export_bin" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px; margin-top: 32px;">导出bin</button>
-                <button id="a_export_gif" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">导出gif</button>
-                <button id="a_repairPal" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">修复调色板</button>
-                <button id="a_delete_bin" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">删除动画</button>
-            </div>
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 176px; height: 196px; font-size: 10px;">
-                <div class="layui-form-item" style="margin-left: 4px; margin-top: 10px;">
-                    <span class="attr_title">导入动画:</span>
-                    <div class="layui-input-group" style="margin-top: 4px; margin-bottom: 4px;">
-                        <input id="a_import_graphic_input" type="text" placeholder="请选择Graphic文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="a_import_graphic_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <div class="layui-input-group" style="margin-bottom: 4px;">
-                        <input id="a_import_graphicinfo_input" type="text" placeholder="请选择GraphicInfo文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="a_import_graphicinfo_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <div class="layui-input-group" style="margin-bottom: 4px;">
-                        <input id="a_import_anime_input" type="text" placeholder="请选择Anime文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="a_import_anime_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <div class="layui-input-group" style="margin-bottom: 4px;">
-                        <input id="a_import_animeinfo_input" type="text" placeholder="请选择AnimeInfo文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="a_import_animeinfo_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <span style="color: red;">*注:请确保文件名中必须分别包含: Graphic | GraphicInfo | Anime | AnimeInfo, 不区分大小写</span>
-                </div>
-            </div>
-        </div>
+    <div class="layui-col-xs9" style="height:542px; background-image: url(res/images/canvasBg.jpg); background-repeat: no-repeat; background-size: cover;">
+        <canvas id="a_canvas" style="width: 100%; height: 542px;"></canvas>
     </div>
 </div>
 
 
 <script>
-    let mockData = [];
-    for(let i=0; i<Math.floor(Math.random()*1000); i++){
-        mockData.push({
-            animeId: i,
-            addr: '0x0000FF',
-            animeCount:Math.floor(Math.random()*64)+64,
-            animeTime:500+Math.floor(Math.random()*500),
-            frameCount:8+Math.floor(Math.random()*8),
-            pattle:Math.floor(Math.random()*3),
-            actions:[]
-        });
-    }
 
     let $, layer, table;
     let inst;
     let curRow = null;
 
-    layui.use(function () {
+    layui.use(function(){
         $ = layui.$;
         layer = layui.layer;
-        table = layui.table;
-        inst = table.render({
-            elem: '#data-list',
-            defaultToolbar: [],
-            align:'left',
-            height: '450px',
-            skin:'nob',
-            size:'sm',
-            defaultContextmenu: false,//阻止默认右键菜单
-            // even:true,
-            cellExpandedMode:'tips',
-            cols: [[
-                {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
-                {field:'animeId', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
-                {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false},
-                {field:'animeCount', fixed: 'left', title: '数量', maxWidth:50, style:'scale:0.8;', unresize: false}
-            ]],
-            data:mockData,
-            done:function(res, curr, count){
-                // console.log({res, curr, count});
-                $('#a_count').text(count);
-                celOnSelect(mockData[0]);
-                curRow = 0;
-                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-            }
-        });
-
-
-        table.on('row(data-list)', function(obj){
-            // console.log(obj);
-            // layer.msg(JSON.stringify(obj.data));
-
-            // var data = obj.data; // 得到当前行数据
-            // var dataCache = obj.dataCache; // 得到当前行缓存数据，包含特定字段 --- 2.8.8+
-            // var index = obj.index; // 得到当前行索引
-            // var tr = obj.tr; // 得到当前行 <tr> 元素的 jQuery 对象
-            // var options = obj.config; // 获取当前表格基础属性配置项
-            // console.log({data, dataCache, index, tr, options}); // 查看对象所有成员
-            
-            // obj.del() // 删除当前行
-            // obj.update(fields, related);  // 修改行数据
-            obj.setRowChecked({type: 'radio'}); // 设置行选中状态, radio 单选模式；checkbox 复选模式
-
-            celOnSelect(obj.data);
-        });
-
-        table.on('rowContextmenu(data-list)', function(obj){
-            obj.setRowChecked({type: 'checkbox'});
-        });
     });
 
-    document.onkeyup = function (e) {
-        if (!(e.keyCode == 38 || e.keyCode == 40)) {
-            return;
-        }
+    // $('#a_search_btn').on('click', function(){
+    //     let num = $('#a_search_input').val();
+    //     if(num == ''){
+    //         return;
+    //     }
 
-        let maxLen = inst.config.data.length;
+    //     let data = inst.config.data;
+    //     console.log(data);
+    //     let has = false;
+    //     for(let i=0; i<data.length; i++){
+    //         if(data[i].animeId == num){
+    //             curRow = i;
+    //             has = true;
+    //             table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+    //             celOnSelect(data[i]);
+    //             break;
+    //         }
+    //     }
 
-        if (curRow == null){
-            curRow = 0;
-        }else{
-            if (e.keyCode === 38){
-                curRow--;
-                curRow = curRow < 0 ? maxLen - 1 : curRow;
-            }else if (e.keyCode === 40){
-                curRow++;
-                curRow = curRow >= maxLen ? 0 : curRow;
-            }
-        }
-
-        table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-        celOnSelect(inst.config.data[curRow]);
-
-        // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
-        let tr = $(`tr[data-index=${curRow}]`);
-        let _table = tr[0].parentNode.parentNode.parentNode;
-
-        if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
-            _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
-        }else if(tr[0].offsetTop < _table.scrollTop){
-            _table.scrollTop = tr[0].offsetTop;
-        }
-    };
-
-    $('#a_search_btn').on('click', function(){
-        let num = $('#a_search_input').val();
-        if(num == ''){
-            return;
-        }
-
-        let data = inst.config.data;
-        console.log(data);
-        let has = false;
-        for(let i=0; i<data.length; i++){
-            if(data[i].animeId == num){
-                curRow = i;
-                has = true;
-                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-                celOnSelect(data[i]);
-                break;
-            }
-        }
-
-        if(!has){
-            layer.msg('未找到该编号',{offset:['100px','60px']});
-        }else{
-            // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
-            let tr = $(`tr[data-index=${curRow}]`);
-            let _table = tr[0].parentNode.parentNode.parentNode;
+    //     if(!has){
+    //         layer.msg('未找到该编号',{offset:['100px','60px']});
+    //     }else{
+    //         // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
+    //         let tr = $(`tr[data-index=${curRow}]`);
+    //         let _table = tr[0].parentNode.parentNode.parentNode;
     
-            if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
-                _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
-            }else if(tr[0].offsetTop < _table.scrollTop){
-                _table.scrollTop = tr[0].offsetTop;
-            }
-        }
-    });
+    //         if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
+    //             _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
+    //         }else if(tr[0].offsetTop < _table.scrollTop){
+    //             _table.scrollTop = tr[0].offsetTop;
+    //         }
+    //     }
+    // });
 
-    // cel选中事件回调
-    function celOnSelect(data){
-        console.log({data});
-        $('#a_animeId').text(data.animeId);
-        $('#a_count2').text(data.animeCount);
-        $('#a_animeTime').text(data.animeTime);
-        $('#a_frameCount').text(data.frameCount);
-        $('#a_pattle').text(['官方','自带','隐藏'][data.pattle]);
-    }
+    // // cel选中事件回调
+    // function celOnSelect(data){
+    //     console.log({data});
+    //     $('#a_animeId').text(data.animeId);
+    //     $('#a_count2').text(data.animeCount);
+    //     $('#a_animeTime').text(data.animeTime);
+    //     $('#a_frameCount').text(data.frameCount);
+    //     $('#a_pattle').text(['官方','自带','隐藏'][data.pattle]);
+    // }
+
 </script>

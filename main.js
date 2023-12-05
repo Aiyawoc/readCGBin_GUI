@@ -18,8 +18,8 @@ const createWindow = () => {
     });
 
     // 隐藏菜单栏
-    // const menu = Menu.buildFromTemplate([]);
-    // Menu.setApplicationMenu(menu);
+    const menu = Menu.buildFromTemplate([]);
+    Menu.setApplicationMenu(menu);
 
     mainWindow.loadFile('index.html');
 }
@@ -160,6 +160,7 @@ async function getGraphicList(){
                     });
                 }
                 resolve(resData);
+                // resolve(dataList);
             });
         }
     });

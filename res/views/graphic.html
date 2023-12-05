@@ -44,113 +44,106 @@
 </style>
 
 <div class="layui-row layui-col-space4" style="margin-top: 4px;">
-    <div class="layui-col-xs4">
+    <div class="layui-col-xs3">
         <div style="height: 542px; background-color:#2e2e2e; color: #fff;">
-            <div class="layui-input-group" style="font-size: 10px; margin-bottom: 4px;">
-                <div class="layui-input-prefix">数量:</div>
-                <div id="g_count" class="layui-input-suffix">0</div>
-                <input id="g_search_input" type="text" placeholder="编号" class="layui-input">
-                <div id="g_search_btn" class="layui-input-split layui-input-suffix" style="cursor: pointer;">
-                    <i class="layui-icon layui-icon-search"></i>
+            <div style="height: 12px;"></div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">图片总数:</span>
+                <div id="g_count" class="attr_value"> 1243001 </div>
+            </div>
+
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">物理编号:</span>
+                <input id="g_search_input" type="text" placeholder="请输入编号" class="layui-input" style="width: 100px; height: 22px; font-size: 10px; margin-left: 4px; margin-top: 8px;">
+                <div class="layui-input-suffix" style="width: 30px;">
+                    <button id="g_search_btnup" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.5; margin-left: -8px; margin-bottom: 0px; margin-top: 7px; transform-origin: left top; padding: 0; width: 28px;">
+                        <i class="layui-icon layui-icon-up"></i>
+                    </button>
+                    <button id="g_search_btndown" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.5; margin-left: -8px; margin-top: -16px; transform-origin: left top; padding: 0; width: 28px;">
+                        <i class="layui-icon layui-icon-down"></i>
+                    </button>
                 </div>
             </div>
 
-            <div id="data-list"></div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">图片编号:</span>
+                <div id="g_imgNum" class="attr_value" style="width: 90px;">0</div>
+                <button id="g_imgNum_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">地址:</span>
+                <div id="g_addr" class="attr_value">0xFF0012</div>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">调色板:</span>
+                <div id="g_pattle" class="attr_value">自带</div>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">版本:</span>
+                <div id="g_verson" class="attr_value">02</div>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">占用字节:</span>
+                <div id="g_size" class="attr_value">0</div>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">图片大小:</span>
+                <div id="g_imgWidth_imgHeight" class="attr_value">0,0</div>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">偏移量:</span>
+                <div id="g_imgOffsetX_imgOffsetY" class="attr_value" style="width: 90px;">0,0</div>
+                <button id="g_imgOffsetX_imgOffsetY_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">占地面积:</span>
+                <div id="g_areaX_areaY" class="attr_value" style="width: 90px;">1,1</div>
+                <button id="g_areaX_areaY_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">地图编号:</span>
+                <div id="g_mapId" class="attr_value" style="width: 90px;">0</div>
+                <button id="g_mapId_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
+            </div>
+            <div class="layui-input-group" style="margin-bottom: 4px;">
+                <span class="attr_title">可移动:</span>
+                <div id="g_canMove" class="attr_value" style="width: 90px;">0</div>
+                <button id="g_canMove_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="scale: 0.8;">修改</button>
+            </div>
 
-            <div class="layui-input-group" style="font-size: 10px; margin-top: 4px;">
-                <button id="g_export_bin_mult" class="layui-btn layui-btn-sm layui-show-sm-inline" style="scale:0.8; width:100px; margin-left: 24px; margin-top: 4px;">批量导出bin</button>
-                <button id="g_export_bmp_mult" class="layui-btn layui-btn-sm layui-show-sm-inline" style="scale:0.8; width:100px; margin-top: 4px;">批量导出bmp</button>
+            <button id="g_export_bin" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-top: 10px; margin-bottom: 4px; margin-left: 16px;">导出bin</button>
+            <button id="g_export_bmp" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-top: 10px; margin-bottom: 4px;">导出bmp</button>
+            <button id="g_repairPal" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px; margin-left: 16px;">修复调色板</button>
+            <button id="g_delete_bin" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px;">删除图片</button>
+            <button id="g_export_bin_mult" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px; margin-left: 16px;">批量导出bin</button>
+            <button id="g_export_bmp_mult" class="layui-btn layui-btn-primary layui-btn-xs" style="width:80px; margin-bottom: 4px;">批量导出bmp</button>
+
+            <div class="layui-form-item" style="margin-left: 14px; margin-top: 10px; font-size: 10px;">
+                <span class="attr_title">导入图片:</span>
+                <div class="layui-input-group" style="margin-top: 4px; margin-bottom: 4px;">
+                    <input id="g_import_graphic_input" type="text" placeholder="请选择Graphic文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="g_import_graphic_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <div class="layui-input-group" style="margin-bottom: 4px;">
+                    <input id="g_import_graphicinfo_input" type="text" placeholder="请选择GraphicInfo文件" class="layui-input" style="width: 138px; height: 22px;">
+                    <div class="layui-input-suffix">
+                        <button id="g_import_graphicinfo_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px;">打开</button>
+                    </div>
+                </div>
+                <button id="a_import_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="width: 80px; margin-left: 96px;">合并</button>
+                <span style="color: red; width: 176px; display: block;">*注:请确保文件名中必须分别包含: Graphic | GraphicInfo, 不区分大小写</span>
             </div>
         </div>
     </div>
 
-    <div class="layui-col-xs8">
-        <div style="height: 342px; background-color:#2e2e2e; color: #fff; background-image: url(res/images/canvasBg.jpg);">
-            <canvas id="g_canvas" style="width: 530px; height: 342px;"></canvas>
-        </div>
-
-        <div class="layui-row" style="height: 196px; background-color:#3c3c3c; color: #fff; margin-top: 4px;">
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 174px; margin-right: 4px; height: 196px; font-size: 10px;">
-                <div class="layui-input-group" style="margin-bottom: 4px; margin-top: 10px;">
-                    <span class="attr_title">图片编号:</span>
-                    <div id="g_imgNum" class="attr_value">0</div>
-                    <button id="g_imgNum_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <!-- <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">版本:</span>
-                    <div id="g_verson" class="attr_value">02</div>
-                </div> -->
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">占用字节:</span>
-                    <div id="g_size" class="attr_value">0</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">图片大小:</span>
-                    <div id="g_imgWidth_imgHeight" class="attr_value">0,0</div>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">偏移量:</span>
-                    <div id="g_imgOffsetX_imgOffsetY" class="attr_value">0,0</div>
-                    <button id="g_imgOffsetX_imgOffsetY_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">占地面积:</span>
-                    <div id="g_areaX_areaY" class="attr_value">1,1</div>
-                    <button id="g_areaX_areaY_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">地图编号:</span>
-                    <div id="g_mapId" class="attr_value">0</div>
-                    <button id="g_mapId_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">可移动:</span>
-                    <div id="g_canMove" class="attr_value">0</div>
-                    <button id="g_canMove_btn" class="layui-btn layui-btn-xs" style="scale: 0.8;">修改</button>
-                </div>
-                <div class="layui-input-group" style="margin-bottom: 4px;">
-                    <span class="attr_title">调色板:</span>
-                    <div id="g_pallte" class="attr_value">自带</div>
-                </div>
-            </div>
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 174px; margin-right: 4px; height: 196px; font-size: 10px; text-align: center;">
-                <button id="g_export_bin" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px; margin-top: 32px;">导出bin</button>
-                <button id="g_export_bmp" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">导出bmp</button>
-                <button id="g_repairPal" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">修复调色板</button>
-                <button id="g_delete_bin" class="layui-btn layui-btn-xs" style="width:100px; margin-left: 0px; margin-bottom: 4px;">删除图片</button>
-            </div>
-            <div class="layui-col-xs4 layui-inline" style="background-color:#2e2e2e; width: 176px; height: 196px; font-size: 10px;">
-                <div class="layui-form-item" style="margin-left: 4px; margin-top: 10px;">
-                    <span class="attr_title">导入图片:</span>
-                    <div class="layui-input-group" style="margin-top: 4px; margin-bottom: 4px;">
-                        <input id="g_import_graphic_input" type="text" placeholder="请选择Graphic文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="g_import_graphic_btn" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <div class="layui-input-group" style="margin-bottom: 4px;">
-                        <input id="g_import_graphicinfo_input" type="text" placeholder="请选择GraphicInfo文件" class="layui-input" style="width: 126px; height: 22px;">
-                        <div class="layui-input-suffix">
-                            <button id="g_import_graphicinfo_input" class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: -8px; font-size: 10px;">打开</button>
-                        </div>
-                    </div>
-                    <span style="color: red;">*注:请确保文件名中必须分别包含: Graphic | GraphicInfo, 不区分大小写</span>
-                </div>
-            </div>
-        </div>
+    <div class="layui-col-xs9" style="height:542px; background-image: url(res/images/canvasBg.jpg); background-repeat: no-repeat; background-size: cover;">
+        <canvas id="g_canvas" style="width: 100%; height: 542px;"></canvas>
     </div>
+
 </div>
 
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-form-item" style="width: 240px; font-size: 12px;">
-        <div class="layui-input-group">
-            <input type="text" placeholder="编号" class="layui-input">
-            <div class="layui-input-split layui-input-suffix" style="cursor: pointer;">
-                <i class="layui-icon layui-icon-search"></i>
-            </div>
-        </div>
-    </div>
-</script>
 
 
 <script>
@@ -158,155 +151,29 @@
     let inst;
     let curRow = null;
 
-    window.electronAPI.graphicPageInit().then(res=>{
-        console.log(res.length);
-        let mockData = [];
-        for(let i=0;i<10000;i++){
-            mockData.push(res[i]);
-        }
+    // window.electronAPI.graphicPageInit().then(res=>{
+    //     console.log(res.length);
+    //     let mockData = [];
+    //     for(let i=0;i<100;i++){
+    //         mockData.push(res[i]);
+    //     }
 
-        layui.use(function () {
-            $ = layui.$;
-            layer = layui.layer;
-            table = layui.table;
-            inst = table.render({
-                elem: '#data-list',
-                defaultToolbar: [],
-                align:'left',
-                height: '450px',
-                skin:'nob',
-                size:'sm',
-                defaultContextmenu: false,//阻止默认右键菜单
-                // even:true,
-                limit: 1000,
-                // page: { // 支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                //     layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
-                //     //curr: 5, //设定初始在第 5 页
-                //     groups: 1, //只显示 1 个连续页码
-                //     first: false, //不显示首页
-                //     last: false //不显示尾页
-                // },
-                cellExpandedMode:'tips',
-                cols: [[
-                    {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
-                    {field:'imgNum', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
-                    {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false}
-                ]],
-                data: mockData,
-                done:function(res, curr, count){
-                    // console.log({res, curr, count});
-                    $('#g_count').text(count);
-                    celOnSelect(mockData[0]);
-                    curRow = 0;
-                    table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-                }
-            });
-    
-    
-            table.on('row(data-list)', function(obj){
-                // layer.msg(JSON.stringify(obj.data));
-    
-                // var data = obj.data; // 得到当前行数据
-                // var dataCache = obj.dataCache; // 得到当前行缓存数据，包含特定字段 --- 2.8.8+
-                // var index = obj.index;
-                curRow = obj.index; // 得到当前行索引
-                // var tr = obj.tr; // 得到当前行 <tr> 元素的 jQuery 对象
-                // var options = obj.config; // 获取当前表格基础属性配置项
-                // console.log({data, dataCache, index, tr, options}); // 查看对象所有成员
-                
-                // obj.del() // 删除当前行
-                // obj.update(fields, related);  // 修改行数据
-                obj.setRowChecked({type: 'radio'}); // 设置行选中状态, radio 单选模式；checkbox 复选模式
-                celOnSelect(obj.data);
-            });
-    
-            table.on('rowContextmenu(data-list)', function(obj){
-                obj.setRowChecked({type: 'checkbox'});
-            });
-        });
-    
-        document.onkeyup = function (e) {
-            if (!(e.keyCode == 38 || e.keyCode == 40)) {
-                return;
-            }
-    
-            let maxLen = inst.config.data.length;
-    
-            if (curRow == null){
-                curRow = 0;
-            }else{
-                if (e.keyCode === 38){
-                    curRow--;
-                    curRow = curRow < 0 ? maxLen - 1 : curRow;
-                }else if (e.keyCode === 40){
-                    curRow++;
-                    curRow = curRow >= maxLen ? 0 : curRow;
-                }
-            }
-    
-            table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-            celOnSelect(inst.config.data[curRow]);
-    
-            // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
-            let tr = $(`tr[data-index=${curRow}]`);
-            let _table = tr[0].parentNode.parentNode.parentNode;
-    
-            if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
-                _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
-            }else if(tr[0].offsetTop < _table.scrollTop){
-                _table.scrollTop = tr[0].offsetTop;
-            }
-        };
-    
-        $('#g_search_btn').on('click', function(){
-            let num = $('#g_search_input').val();
-            if(num == ''){
-                return;
-            }
-    
-            let data = inst.config.data;
-            let has = false;
-            for(let i=0; i<data.length; i++){
-                if(data[i].imgNum == num){
-                    curRow = i;
-                    has = true;
-                    table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-                    celOnSelect(data[i]);
-                    break;
-                }
-            }
-    
-            if(!has){
-                layer.msg('未找到该编号',{offset:['100px','60px']});
-            }else{
-                // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
-                let tr = $(`tr[data-index=${curRow}]`);
-                let _table = tr[0].parentNode.parentNode.parentNode;
-        
-                if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
-                    _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
-                }else if(tr[0].offsetTop < _table.scrollTop){
-                    _table.scrollTop = tr[0].offsetTop;
-                }
-            }
-        });
-    
-        // cel选中事件回调
-        function celOnSelect(data){
-            console.log({data});
-            $('#g_imgNum').text(data.imgNum);
-            $('#g_size').text(data.imgSize);
-            $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
-            $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
-            $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
-            $('#g_mapId').text(data.mapId);
-            $('#g_canMove').text(data.canMove);
-            $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
-            // TODO: 更新canvas
-        }
+    //     // cel选中事件回调
+    //     function celOnSelect(data){
+    //         console.log({data});
+    //         $('#g_imgNum').text(data.imgNum);
+    //         $('#g_size').text(data.imgSize);
+    //         $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
+    //         $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
+    //         $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
+    //         $('#g_mapId').text(data.mapId);
+    //         $('#g_canMove').text(data.canMove);
+    //         $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
+    //         // TODO: 更新canvas
+    //     }
     
 
-    });    
+    // });    
     
     
 
