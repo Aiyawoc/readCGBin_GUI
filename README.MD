@@ -1,4 +1,7 @@
 # CrossGate Bin Tool GUI
+<烂尾中, 对于动辄10w+条数据, electron进程间通信消耗巨大, 且前端页面渲染压力同样巨大>
+
+
 ![图片](./res/images/UI_02.jpg)
 
 ![图片](./res/images/UI_03.jpg)

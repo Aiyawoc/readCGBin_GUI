@@ -21,9 +21,10 @@
     "electron": "27.1.3"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "readcgbin": "^1.0.1"
   },
-  "build":{
+  "build": {
     "asar": true
   }
 }

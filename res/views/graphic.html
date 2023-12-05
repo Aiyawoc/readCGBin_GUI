@@ -154,136 +154,99 @@
 
 
 <script>
-    let mockData = [];
-    for(let i=0; i<Math.floor(Math.random()*1000)+20; i++){
-        mockData.push({
-            imgNum: i,
-            addr: '0x0000FF',
-            imgSize: Math.floor(Math.random()*1000) + 2000,
-            offsetX: -1* Math.floor(Math.random()*100),
-            offsetY: -1* Math.floor(Math.random()*100),
-            imgWidth: Math.floor(Math.random()*100) + 32,
-            imgHeight: Math.floor(Math.random()*100) + 32,
-            areaX: 1,
-            areaY: 1,
-            canMove: 1,
-            mapId: 0,
-            pattle: Math.floor(Math.random()*3)
-        });
-    }
-
     let $, layer, table;
     let inst;
     let curRow = null;
 
-    layui.use(function () {
-        $ = layui.$;
-        layer = layui.layer;
-        table = layui.table;
-        inst = table.render({
-            elem: '#data-list',
-            defaultToolbar: [],
-            align:'left',
-            height: '450px',
-            skin:'nob',
-            size:'sm',
-            defaultContextmenu: false,//阻止默认右键菜单
-            // even:true,
-            cellExpandedMode:'tips',
-            cols: [[
-                {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
-                {field:'imgNum', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
-                {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false}
-            ]],
-            data: mockData,
-            done:function(res, curr, count){
-                // console.log({res, curr, count});
-                $('#g_count').text(count);
-                celOnSelect(mockData[0]);
+    window.electronAPI.graphicPageInit().then(res=>{
+        console.log(res.length);
+        let mockData = [];
+        for(let i=0;i<10000;i++){
+            mockData.push(res[i]);
+        }
+
+        layui.use(function () {
+            $ = layui.$;
+            layer = layui.layer;
+            table = layui.table;
+            inst = table.render({
+                elem: '#data-list',
+                defaultToolbar: [],
+                align:'left',
+                height: '450px',
+                skin:'nob',
+                size:'sm',
+                defaultContextmenu: false,//阻止默认右键菜单
+                // even:true,
+                limit: 1000,
+                // page: { // 支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                //     layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
+                //     //curr: 5, //设定初始在第 5 页
+                //     groups: 1, //只显示 1 个连续页码
+                //     first: false, //不显示首页
+                //     last: false //不显示尾页
+                // },
+                cellExpandedMode:'tips',
+                cols: [[
+                    {type: 'checkbox', fixed: 'left', style:'scale:0.5;'},
+                    {field:'imgNum', fixed: 'left', title: '编号', style:'scale:0.8;', unresize: false},
+                    {field:'addr', fixed: 'left', title: '地址', maxWidth:84, style:'scale:0.8;', unresize: false}
+                ]],
+                data: mockData,
+                done:function(res, curr, count){
+                    // console.log({res, curr, count});
+                    $('#g_count').text(count);
+                    celOnSelect(mockData[0]);
+                    curRow = 0;
+                    table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+                }
+            });
+    
+    
+            table.on('row(data-list)', function(obj){
+                // layer.msg(JSON.stringify(obj.data));
+    
+                // var data = obj.data; // 得到当前行数据
+                // var dataCache = obj.dataCache; // 得到当前行缓存数据，包含特定字段 --- 2.8.8+
+                // var index = obj.index;
+                curRow = obj.index; // 得到当前行索引
+                // var tr = obj.tr; // 得到当前行 <tr> 元素的 jQuery 对象
+                // var options = obj.config; // 获取当前表格基础属性配置项
+                // console.log({data, dataCache, index, tr, options}); // 查看对象所有成员
+                
+                // obj.del() // 删除当前行
+                // obj.update(fields, related);  // 修改行数据
+                obj.setRowChecked({type: 'radio'}); // 设置行选中状态, radio 单选模式；checkbox 复选模式
+                celOnSelect(obj.data);
+            });
+    
+            table.on('rowContextmenu(data-list)', function(obj){
+                obj.setRowChecked({type: 'checkbox'});
+            });
+        });
+    
+        document.onkeyup = function (e) {
+            if (!(e.keyCode == 38 || e.keyCode == 40)) {
+                return;
+            }
+    
+            let maxLen = inst.config.data.length;
+    
+            if (curRow == null){
                 curRow = 0;
-                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+            }else{
+                if (e.keyCode === 38){
+                    curRow--;
+                    curRow = curRow < 0 ? maxLen - 1 : curRow;
+                }else if (e.keyCode === 40){
+                    curRow++;
+                    curRow = curRow >= maxLen ? 0 : curRow;
+                }
             }
-        });
-
-
-        table.on('row(data-list)', function(obj){
-            // layer.msg(JSON.stringify(obj.data));
-
-            // var data = obj.data; // 得到当前行数据
-            // var dataCache = obj.dataCache; // 得到当前行缓存数据，包含特定字段 --- 2.8.8+
-            // var index = obj.index;
-            curRow = obj.index; // 得到当前行索引
-            // var tr = obj.tr; // 得到当前行 <tr> 元素的 jQuery 对象
-            // var options = obj.config; // 获取当前表格基础属性配置项
-            // console.log({data, dataCache, index, tr, options}); // 查看对象所有成员
-            
-            // obj.del() // 删除当前行
-            // obj.update(fields, related);  // 修改行数据
-            obj.setRowChecked({type: 'radio'}); // 设置行选中状态, radio 单选模式；checkbox 复选模式
-            celOnSelect(obj.data);
-        });
-
-        table.on('rowContextmenu(data-list)', function(obj){
-            obj.setRowChecked({type: 'checkbox'});
-        });
-    });
-
     
+            table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+            celOnSelect(inst.config.data[curRow]);
     
-    document.onkeyup = function (e) {
-        if (!(e.keyCode == 38 || e.keyCode == 40)) {
-            return;
-        }
-
-        let maxLen = inst.config.data.length;
-
-        if (curRow == null){
-            curRow = 0;
-        }else{
-            if (e.keyCode === 38){
-                curRow--;
-                curRow = curRow < 0 ? maxLen - 1 : curRow;
-            }else if (e.keyCode === 40){
-                curRow++;
-                curRow = curRow >= maxLen ? 0 : curRow;
-            }
-        }
-
-        table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-        celOnSelect(inst.config.data[curRow]);
-
-        // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
-        let tr = $(`tr[data-index=${curRow}]`);
-        let _table = tr[0].parentNode.parentNode.parentNode;
-
-        if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
-            _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
-        }else if(tr[0].offsetTop < _table.scrollTop){
-            _table.scrollTop = tr[0].offsetTop;
-        }
-    };
-
-    $('#g_search_btn').on('click', function(){
-        let num = $('#g_search_input').val();
-        if(num == ''){
-            return;
-        }
-
-        let data = inst.config.data;
-        let has = false;
-        for(let i=0; i<data.length; i++){
-            if(data[i].imgNum == num){
-                curRow = i;
-                has = true;
-                table.setRowChecked('data-list', {index: curRow, type: 'radio' });
-                celOnSelect(data[i]);
-                break;
-            }
-        }
-
-        if(!has){
-            layer.msg('未找到该编号',{offset:['100px','60px']});
-        }else{
             // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
             let tr = $(`tr[data-index=${curRow}]`);
             let _table = tr[0].parentNode.parentNode.parentNode;
@@ -293,22 +256,64 @@
             }else if(tr[0].offsetTop < _table.scrollTop){
                 _table.scrollTop = tr[0].offsetTop;
             }
+        };
+    
+        $('#g_search_btn').on('click', function(){
+            let num = $('#g_search_input').val();
+            if(num == ''){
+                return;
+            }
+    
+            let data = inst.config.data;
+            let has = false;
+            for(let i=0; i<data.length; i++){
+                if(data[i].imgNum == num){
+                    curRow = i;
+                    has = true;
+                    table.setRowChecked('data-list', {index: curRow, type: 'radio' });
+                    celOnSelect(data[i]);
+                    break;
+                }
+            }
+    
+            if(!has){
+                layer.msg('未找到该编号',{offset:['100px','60px']});
+            }else{
+                // 如果当前选择的tr不在可视区域内，则滚动到可视区域内
+                let tr = $(`tr[data-index=${curRow}]`);
+                let _table = tr[0].parentNode.parentNode.parentNode;
+        
+                if(tr[0].offsetTop + tr.height() > _table.scrollTop + _table.clientHeight){
+                    _table.scrollTop = tr[0].offsetTop + tr.height() - _table.clientHeight;
+                }else if(tr[0].offsetTop < _table.scrollTop){
+                    _table.scrollTop = tr[0].offsetTop;
+                }
+            }
+        });
+    
+        // cel选中事件回调
+        function celOnSelect(data){
+            console.log({data});
+            $('#g_imgNum').text(data.imgNum);
+            $('#g_size').text(data.imgSize);
+            $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
+            $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
+            $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
+            $('#g_mapId').text(data.mapId);
+            $('#g_canMove').text(data.canMove);
+            $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
+            // TODO: 更新canvas
         }
-    });
+    
 
-    // cel选中事件回调
-    function celOnSelect(data){
-        console.log({data});
-        $('#g_imgNum').text(data.imgNum);
-        $('#g_size').text(data.imgSize);
-        $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
-        $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
-        $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
-        $('#g_mapId').text(data.mapId);
-        $('#g_canMove').text(data.canMove);
-        $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
-        // TODO: 更新canvas
-    }
+    });    
+    
+    
+
+
+
+
+
 </script>
 
 
