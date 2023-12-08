@@ -5,4 +5,8 @@ out/
 .gitignore
 logs/main.2023-12-04.log
 logs/main.2023-12-05.log
-.gitignore
+log/*
+logs/main.2023-12-06.log
+logs/main.2023-12-07.log
+logs/main.2023-12-08.log
+tmp/*

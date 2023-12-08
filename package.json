@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "readcgbin": "^1.0.1"
+    "readcgbin": "^1.0.3"
   },
   "build": {
     "asar": true

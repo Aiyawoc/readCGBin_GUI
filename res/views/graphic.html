@@ -49,7 +49,7 @@
             <div style="height: 12px;"></div>
             <div class="layui-input-group" style="margin-bottom: 4px;">
                 <span class="attr_title">图片总数:</span>
-                <div id="g_count" class="attr_value"> 1243001 </div>
+                <div id="g_count" class="attr_value"></div>
             </div>
 
             <div class="layui-input-group" style="margin-bottom: 4px;">
@@ -72,15 +72,15 @@
             </div>
             <div class="layui-input-group" style="margin-bottom: 4px;">
                 <span class="attr_title">地址:</span>
-                <div id="g_addr" class="attr_value">0xFF0012</div>
+                <div id="g_addr" class="attr_value"></div>
             </div>
             <div class="layui-input-group" style="margin-bottom: 4px;">
                 <span class="attr_title">调色板:</span>
-                <div id="g_pattle" class="attr_value">自带</div>
+                <div id="g_pattle" class="attr_value"></div>
             </div>
             <div class="layui-input-group" style="margin-bottom: 4px;">
                 <span class="attr_title">版本:</span>
-                <div id="g_verson" class="attr_value">02</div>
+                <div id="g_verson" class="attr_value"></div>
             </div>
             <div class="layui-input-group" style="margin-bottom: 4px;">
                 <span class="attr_title">占用字节:</span>
@@ -139,7 +139,7 @@
     </div>
 
     <div class="layui-col-xs9" style="height:542px; background-image: url(res/images/canvasBg.jpg); background-repeat: no-repeat; background-size: cover;">
-        <canvas id="g_canvas" style="width: 100%; height: 542px;"></canvas>
+        <canvas id="g_canvas"></canvas>
     </div>
 
 </div>
@@ -147,37 +147,93 @@
 
 
 <script>
-    let $, layer, table;
-    let inst;
-    let curRow = null;
+    let loadIndex = layer.load(1);
+    let curIdx = 0;
+    let maxIdx = 0;
+    let imgList = [];
 
-    // window.electronAPI.graphicPageInit().then(res=>{
-    //     console.log(res.length);
-    //     let mockData = [];
-    //     for(let i=0;i<100;i++){
-    //         mockData.push(res[i]);
-    //     }
+    window.electronAPI.graphicPageInit().then(res=>{
+        console.log(res[curIdx]);
+        console.log(res.infoList);
+        layer.close(loadIndex);
 
-    //     // cel选中事件回调
-    //     function celOnSelect(data){
-    //         console.log({data});
-    //         $('#g_imgNum').text(data.imgNum);
-    //         $('#g_size').text(data.imgSize);
-    //         $('#g_imgWidth_imgHeight').text(`${data.imgWidth},${data.imgHeight}`);
-    //         $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX},${data.offsetY}`);
-    //         $('#g_areaX_areaY').text(`${data.areaX},${data.areaY}`);
-    //         $('#g_mapId').text(data.mapId);
-    //         $('#g_canMove').text(data.canMove);
-    //         $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
-    //         // TODO: 更新canvas
-    //     }
+        $('#g_count').text(res.infoList.length);
+        imgList = res.infoList;
+        maxIdx = res.infoList.length - 1 - 2;
+
+        // 设置第一条数据
+        setCurData(res[0], curIdx);
+    });
+
+
+    $('#g_search_btnup').click(function(){
+        curIdx--;
+        if(curIdx < 0){
+            curIdx = maxIdx;
+        }
+
+        let imgNum = imgList[curIdx];
+        console.log({imgNum});
+        window.electronAPI.getGraphicDataById(imgNum).then(res=>{
+            console.log(res);
+
+            setCurData(res, curIdx);
+        });
+
+        // setCurData(window.electronAPI.getGraphicInfo(curIdx), curIdx);
+    });
+
+    $('#g_search_btndown').click(function(){
+        curIdx++;
+        if(curIdx >= maxIdx){
+            curIdx = 0;
+        }
+
+        let imgNum = imgList[curIdx];
+        console.log({imgNum});
+        window.electronAPI.getGraphicDataById(imgNum).then(res=>{
+            console.log(res);
+
+            setCurData(res, curIdx);
+        });
+
+        // setCurData(window.electronAPI.getGraphicInfo(curIdx), curIdx);
+    });
     
-
-    // });    
     
-    
+    // cel选中事件回调
+    function setCurData(data, idx){
+        $('#g_search_input').val(idx);
+        curIdx = idx;
 
+        $('#g_imgNum').text(data.imgNum);
+        $('#g_addr').text(`0x${data.addr.toString(16)}`);
+        // $('#g_pallte').text(['官方','自带','隐藏'][data.pattle]);
+        $('#g_verson').text(data.verson);
+        $('#g_size').text(data.imgSize);
+        $('#g_imgWidth_imgHeight').text(`${data.imgWidth}, ${data.imgHeight}`);
+        $('#g_imgOffsetX_imgOffsetY').text(`${data.offsetX}, ${data.offsetY}`);
+        $('#g_areaX_areaY').text(`${data.areaX}, ${data.areaY}`);
+        $('#g_mapId').text(data.mapId);
+        $('#g_canMove').text(data.canMove);
 
+        
+        // 更新canvas
+        let canvas = $('#g_canvas')[0];
+        let ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.width = data.imgWidth;
+        canvas.height = data.imgHeight;
+        
+        console.log(data.img);
+
+        let img = new Image(data.imgWidth, data.imgHeight);
+        img.src = data.img;
+        img.onload = function(){
+            ctx.drawImage(this, 0, 0);
+        }
+        
+    }
 
 
 
